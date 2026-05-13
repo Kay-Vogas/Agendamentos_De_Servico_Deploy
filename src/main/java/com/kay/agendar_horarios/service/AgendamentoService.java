@@ -3,9 +3,11 @@ package com.kay.agendar_horarios.service;
 import com.kay.agendar_horarios.entity.Agendamento;
 import com.kay.agendar_horarios.repository.AgendamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class AgendamentoService {
@@ -30,12 +32,20 @@ public class AgendamentoService {
         return agendamentoRepository.save(agendamento);
     }
 
-    public void deletarAgendamento(Agendamento agendamento) {
-         agendamentoRepository.delete(agendamento);
+    public void deletarAgendamento(Long id) {
+        agendamentoRepository.deletarbyAgendamento(id);
     }
 
     public Agendamento atualizarAgendamento(Agendamento agendamento) {
         return agendamentoRepository.save(agendamento);
+    }
+
+    public List<Agendamento> listarAgendamentosAgendados() {
+        return agendamentoRepository.findAll();
+    }
+
+    public Boolean findByIdAgendamento(Long id) {
+        return agendamentoRepository.findById(id).isPresent();
     }
 
 
