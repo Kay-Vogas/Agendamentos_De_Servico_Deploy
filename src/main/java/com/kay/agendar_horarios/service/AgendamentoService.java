@@ -22,10 +22,9 @@ public class AgendamentoService {
         LocalDateTime horaInicioAgendada = agendamento.getDataHoraAgendamento();
         LocalDateTime horaFimAgendada = agendamento.getDataHoraAgendamento();
 
-
         Agendamento agendados = agendamentoRepository.findByServicoHoraAgendamento(horaInicioAgendada,horaFimAgendada,agendamento.getServico());
 
-        if(agendados.equals(agendamento)) {
+        if(agendados.equals(agendamento) || agendamento.getDataHoraAgendamento().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("Este horário já está marcado!!");
         }
 
@@ -33,20 +32,24 @@ public class AgendamentoService {
     }
 
     public void deletarAgendamento(Long id) {
-        agendamentoRepository.deletarbyAgendamento(id);
+        agendamentoRepository.deleteById(id);
     }
 
     public Agendamento atualizarAgendamento(Agendamento agendamento) {
+
+        if(agendamento.getDataHoraAgendamento().isBefore(LocalDateTime.now())) {}
+
         return agendamentoRepository.save(agendamento);
     }
 
     public List<Agendamento> listarAgendamentosAgendados() {
+
         return agendamentoRepository.findAll();
     }
 
     public Boolean findByIdAgendamento(Long id) {
+
         return agendamentoRepository.findById(id).isPresent();
     }
-
 
 }

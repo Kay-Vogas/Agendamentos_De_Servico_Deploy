@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "agendamento")
 public class Agendamento {
 
     @Id
@@ -24,8 +25,10 @@ public class Agendamento {
     private LocalDateTime fimHoraAgendamento;
 
     @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-    private String telefoneCliente = cliente.getTelefone();
+    private String telefoneCliente;
+
 
     private LocalDateTime dataDoAgendamento = LocalDateTime.now();
 

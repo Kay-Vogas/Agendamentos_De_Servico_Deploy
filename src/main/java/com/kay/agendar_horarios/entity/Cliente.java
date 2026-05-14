@@ -1,17 +1,18 @@
 package com.kay.agendar_horarios.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "cliente")
 public class Cliente {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +23,8 @@ public class Cliente {
     private String email;
     private String telefone;
     private String endereco;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Agendamento> agendamentos;
+
 }
